@@ -77,53 +77,29 @@ class Layer:
         """
         Indicates the total time that the laser was on
         """
-        # Define shift and time shiftcolumn that moves index down one
-        self.df["shift"] = self.df["laser_status"].shift()
-        self.df["t_shift"] = self.df["t"].shift()
-
-        # Define variable time_on
-        time_on = 0
+        on_count = 0
 
         # Iterate through the data frame
         for index, rows in self.df.iterrows():
-            old = self.df["shift"][index]
-            new = self.df["laser_status"][index]
-
             # Determine if the laser is on
-            if (old == 1 and new == 1) or (old == 0 and new == 1):
+            if self.df["laser_status"][index] == 1:
+                on_count += 1
 
-                # Calculate the elapsed time between the points
-                time = self.df["t"][index]-self.df["t_shift"][index]
-                # Add to time_on
-                time_on += time
-
-        print(f"Laser time on is: {time_on}")
+        return on_count
 
     def get_time_off(self):
         """
         Indicates the total time that the laser was off
         """
-        # Define shift column that moves index down one
-        self.df["shift"] = self.df["laser_status"].shift()
-        self.df["t_shift"] = self.df["t"].shift()
-
-        # Define variable time_off
-        time_off = 0
+        off_count = 0
 
         # Iterate through the data frame
         for index, rows in self.df.iterrows():
-            old = self.df["shift"][index]
-            new = self.df["laser_status"][index]
+            # Determine if the laser is on
+            if self.df["laser_status"][index] == 0:
+                off_count += 1
 
-            # Determine if the laser is off
-            if (old == 0 and new == 0) or (old == 1 and new == 0):
-
-                # Calculate the elapsed time between the points
-                time = self.df["t"][index]-self.df["t_shift"][index]
-                # Add to time_off
-                time_off += time
-
-        print(f"Laser time off is: {time_off}")
+        return off_count
 
     def plot(self, show_off: bool):
         """
