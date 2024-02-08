@@ -4,8 +4,6 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 # Ignore data
-data/
-*.csv
 *.pcd
 *.png
 *.tif
