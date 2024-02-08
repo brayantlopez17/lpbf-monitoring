@@ -1,6 +1,5 @@
 import unittest
-from dev.Layer import Layer
-from src.analysis.LayerKinematics import LayerKinematics
+from LayerKinematics.LayerKinematics import LayerKinematics
 
 answers = {
     'layer_10':
@@ -23,7 +22,7 @@ answers = {
         }
 }
 
-test_file = "data/transformed_id-010.csv"
+test_file = "test/data/transformed_id-010.csv"
 
 
 class TestLayer(unittest.TestCase):

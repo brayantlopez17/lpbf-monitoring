@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import json
 
+
 class LayerKinematics:
     """
     This class will take a file from the common monitoring file format and
@@ -9,7 +10,8 @@ class LayerKinematics:
     public methods:
         - get_values()->dict: returns a dictionary with the time and distance values
     """
-    def __init__(self, filepath:str):
+
+    def __init__(self, filepath: str):
         self.filepath = filepath
         self.df = pd.read_csv(self.filepath)
 
@@ -62,11 +64,9 @@ class LayerKinematics:
     def get_values(self):
         return self.summary
 
-    def to_json(self,output_file:str):
+    def to_json(self, output_file: str):
         with open(output_file, 'w') as fp:
             json.dump(self.summary, fp)
-
-
 
 
 if __name__ == "__main__":
