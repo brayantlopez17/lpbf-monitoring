@@ -21,12 +21,14 @@ class LayerKinematics:
         self.time_on = float()
         self.time_off = float()
         self.no_events = int()
+        self.no_events_off = int()
         self.distance_on = float()
         self.distance_off = float()
 
         self._calculate_time_distance_on()
         self._calculate_time_distance_off()
         self._retrieve_no_events()
+        self._retrieve_no_events_off()
 
         self.summary = {
             'time on': self.time_on,
@@ -35,22 +37,27 @@ class LayerKinematics:
             'distance off': self.distance_off,
             'total distance': self.distance_on + self.distance_off,
             'total time': self.time_on + self.time_off,
-            'number events': self.no_events
+            'number events': self.no_events,
+            'number events off': self.no_events_off
         }
 
     def _calculate_time_distance_on(self):
         df_on = self.df[self.df['laser_status'] == 1]
-        self.distance_on = df_on['length'].sum()/1000
-        self.time_on = len(df_on)*10/1000000
+        self.distance_on = df_on['length'].sum()
+        self.time_on = len(df_on)
 
     def _calculate_time_distance_off(self):
         df_off = self.df[self.df['laser_status'] == 0]
-        self.distance_off = df_off['length'].sum()/1000
-        self.time_off = len(df_off) * 10 / 1000000
+        self.distance_off = df_off['length'].sum()
+        self.time_off = len(df_off)
 
     def _retrieve_no_events(self):
         df = self.df[self.df['event'] == 1]
-        self.no_events = len(df) + 1
+        self.no_events = len(df)
+
+    def _retrieve_no_events_off(self):
+        df = self.df[self.df['event'] == -1]
+        self.no_events_off = len(df)
 
     def get_values(self):
         return self.summary
@@ -63,8 +70,7 @@ class LayerKinematics:
 
 
 if __name__ == "__main__":
-    filepath = r"C:\Users\braya\HT_Test\MonitoringData\UTEP 45\UTEP 45\common_monitoring_file\transformed_id-009.csv"
-
+    filepath = r"C:\Users\Brayant_TA\TailoredAlloys\Test_Data\MonitoringData\UTEP 45\UTEP 45\common_monitoring_file\transformed_id-042.csv"
     obj = LayerKinematics(filepath)
 
-    obj.to_json('test_alex.json')
+    obj.to_json('answers.json')
