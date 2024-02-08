@@ -1,5 +1,5 @@
 import unittest
-from dev.Layer import Layer
+from Layer import Layer
 
 
 answers = {
@@ -75,3 +75,11 @@ class TestLayer(unittest.TestCase):
         self.assertAlmostEqual(expected_ans,
                                test_ans, 3,
                                f" Distance OFF | Expected: {expected_ans} | Calculates: {test_ans}")
+
+
+if __name__ == "__main__":
+
+    x = TestLayer()
+
+    x.test_get_number_events_off()
+    x.test_get_number_events_on()
