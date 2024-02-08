@@ -1,10 +1,13 @@
 import pandas as pd
+import numpy as np
 import plotly.express as px
+
 
 class Layer:
 
     def __init__(self, filepath: str):
         self.df = pd.read_csv(filepath)
+        self.df['length'] = self.df['length'] = np.sqrt(self.df["x"].diff() ** 2 + self.df["y"].diff() ** 2)
 
     def get_number_events_on(self):
         """
@@ -44,7 +47,7 @@ class Layer:
         """
         pass
 
-    def plot(self, show_off:bool):
+    def plot(self, show_off: bool):
         """
         Create a plot of the layer, give the option to show when laser was on/off
         """
