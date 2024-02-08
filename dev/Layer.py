@@ -32,7 +32,7 @@ class Layer:
             if old == 0 and new == 1:
                 on_count += 1
 
-        print(f"The laser is on {on_count} times.")
+        return on_count
 
     def get_number_events_off(self):
         """
@@ -56,7 +56,7 @@ class Layer:
             if old == 1 and new == 0:
                 off_count += 1
 
-        print(f"The laser is off {off_count} times.")
+        return off_count
 
     def get_distance_on(self):
         """
