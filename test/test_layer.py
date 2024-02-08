@@ -1,6 +1,6 @@
 import unittest
 from dev.Layer import Layer
-from src.analysis.LayerKinematics import LayerKinematics
+
 
 answers = {
     'layer_10':
@@ -30,48 +30,48 @@ class TestLayer(unittest.TestCase):
 
     def test_get_number_events_on(self, layer: int = 10):
         expected_ans = answers[f"layer_{layer}"]["number events on"]
-        test_layer = LayerKinematics(test_file)
-        test_ans = test_layer.no_events
+        test_layer = Layer(test_file)
+        test_ans = test_layer.get_number_events_on()
         self.assertEqual(expected_ans,
                          test_ans,
                          f" Events ON | Expected: {expected_ans} | Calculates: {test_ans}")
 
     def test_get_number_events_off(self, layer: int = 10):
         expected_ans = answers[f"layer_{layer}"]["number events off"]
-        test_layer = LayerKinematics(test_file)
-        test_ans = test_layer.no_events_off
+        test_layer = Layer(test_file)
+        test_ans = test_layer.get_number_events_off()
         self.assertEqual(expected_ans,
                          test_ans,
                          f" Events OFF | Expected: {expected_ans} | Calculates: {test_ans}")
 
     def test_time_on(self, layer: int = 10):
         expected_ans = answers[f"layer_{layer}"]["time on"]
-        test_layer = LayerKinematics(test_file)
-        test_ans = test_layer.time_on
+        test_layer = Layer(test_file)
+        test_ans = test_layer.get_time_on()
         self.assertEqual(expected_ans,
                          test_ans,
                          f" Time ON | Expected: {expected_ans} | Calculates: {test_ans}")
 
     def test_time_off(self, layer: int = 10):
         expected_ans = answers[f"layer_{layer}"]["time off"]
-        test_layer = LayerKinematics(test_file)
-        test_ans = test_layer.time_off
+        test_layer = Layer(test_file)
+        test_ans = test_layer.get_time_off()
         self.assertEqual(expected_ans,
                          test_ans,
                          f" Time OFF | Expected: {expected_ans} | Calculates: {test_ans}")
 
     def test_distance_on(self, layer: int = 10):
         expected_ans = answers[f"layer_{layer}"]["distance on"]
-        test_layer = LayerKinematics(test_file)
-        test_ans = test_layer.distance_on
+        test_layer = Layer(test_file)
+        test_ans = test_layer.get_distance_on()
         self.assertAlmostEqual(expected_ans,
                                test_ans, 3,
                                f" Distance ON | Expected: {expected_ans} | Calculates: {test_ans}")
 
     def test_distance_off(self, layer: int = 10):
         expected_ans = answers[f"layer_{layer}"]["distance off"]
-        test_layer = LayerKinematics(test_file)
-        test_ans = test_layer.distance_off
+        test_layer = Layer(test_file)
+        test_ans = test_layer.get_distance_off()
         self.assertAlmostEqual(expected_ans,
                                test_ans, 3,
                                f" Distance OFF | Expected: {expected_ans} | Calculates: {test_ans}")
