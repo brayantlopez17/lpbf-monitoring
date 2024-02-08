@@ -19,7 +19,7 @@ class Layer:
         self.df["shift"] = self.df["laser_status"].shift()
 
         # Define the on_count (Number of times laser_status went off --> on)
-        on_count = 0
+        on_events = 0
 
         # Iterate through the dataframe using indexes
         for index, rows in self.df.iterrows():
@@ -30,9 +30,9 @@ class Layer:
 
             # Compares the values to determine if the laser went off-->on
             if old == 0 and new == 1:
-                on_count += 1
+                on_events += 1
 
-        return on_count
+        return on_events
 
     def get_number_events_off(self):
         """
@@ -43,7 +43,7 @@ class Layer:
         self.df["shift"] = self.df["laser_status"].shift()
 
         # Define the off_count (Number of times laser_status went on --> off)
-        off_count = 0
+        off_events = 0
 
         # Iterate through the dataframe using indexes
         for index, rows in self.df.iterrows():
@@ -54,41 +54,24 @@ class Layer:
 
             # Compares the values to determine if the laser went on-->off
             if old == 1 and new == 0:
-                off_count += 1
+                off_events += 1
 
-        return off_count
+        return off_events
 
     def get_distance_on(self):
         """
         Indicates the total distance when the laser was ON
         """
-        # Define distance_on
-        distance_on = 0
-
-        # iterate through the data frame
-        for index, rows in self.df.iterrows():
-
-            # Determines if the laser is on
-            if self.df.loc[index, "laser_status"] == 1:
-                distance_on += self.df.loc[index, "length"]
-
-        print(f"Distance the laser was on: {distance_on}")
+        onDF = self.df[self.df["laser_status"] == 1]
+        return onDF.sum()["length"]
 
     def get_distance_off(self):
         """
         Indicates the total distance when the laser was off
         """
-        # Define distance_off
-        distance_off = 0
-
-        # iterate through the data frame
-        for index, rows in self.df.iterrows():
-
-            # Determines if the laser is on
-            if self.df.loc[index, "laser_status"] == 0:
-                distance_off += self.df.loc[index, "length"]
-
-        print(f"Distance the laser was on: {distance_off}")
+        # Define distance_on
+        offDF = self.df[self.df["laser_status"] == 0]
+        return offDF.sum()["length"]
 
     def get_time_on(self):
         """
@@ -151,15 +134,15 @@ class Layer:
 
 if __name__ == "__main__":
 
-    filepath = r"C:\Users\Anthony\Documents\Tailored\code\common_monitoring_file\transformed_id-001.csv"
+    filepath = r"C:\Users\Anthony\Documents\Tailored\code\common_monitoring_file\transformed_id-010.csv"
 
     test = Layer(filepath)
 
-    test.get_number_events_on()
-    test.get_number_events_off()
+    # test.get_number_events_on()
+    # test.get_number_events_off()
 
-    test.get_distance_off()
-    test.get_distance_on()
+    # print(test.get_distance_off())
+    # print(test.get_distance_on())
 
-    test.get_time_off()
-    test.get_time_on()
+    print(test.get_time_off())
+    print(test.get_time_on())
